@@ -1,0 +1,27 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      seoApiBase:
+        type: string
+        description: SEO API base URL. Defaults to https://seo.forgemesh.io.
+      seoX402PrivateKey:
+        type: string
+        description: Optional EVM private key for automatic x402 settlement.
+      seoMaxPaymentUsdc:
+        type: string
+        description: Maximum automatic USDC payment per call. Defaults to 0.15.
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', '@forgemeshlabs/seo-authority-mcp'],
+      env: {
+        SEO_API_BASE: config.seoApiBase || 'https://seo.forgemesh.io',
+        SEO_X402_PRIVATE_KEY: config.seoX402PrivateKey || '',
+        SEO_MAX_PAYMENT_USDC: config.seoMaxPaymentUsdc || '0.15'
+      }
+    })
+  exampleConfig:
+    seoApiBase: https://seo.forgemesh.io
+    seoMaxPaymentUsdc: '0.15'

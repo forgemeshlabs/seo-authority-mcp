@@ -1,0 +1,25 @@
+services:
+  seo-authority-mcp:
+    build: .
+    image: forgemeshlabs/seo-authority-mcp:0.1.0
+    stdin_open: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    cpus: 0.50
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      SEO_API_BASE: ${SEO_API_BASE:-https://seo.forgemesh.io}
+      SEO_MAX_PAYMENT_USDC: ${SEO_MAX_PAYMENT_USDC:-0.15}
+    healthcheck:
+      test: [CMD, node, -e, "process.exit(0)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks: [seo-mcp-egress]
+networks:
+  seo-mcp-egress: {}

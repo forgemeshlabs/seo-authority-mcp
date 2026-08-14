@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "seo-authority": {
+      "command": "npx",
+      "args": ["-y", "@forgemeshlabs/seo-authority-mcp"],
+      "env": {
+        "SEO_MAX_PAYMENT_USDC": "0.15"
+      }
+    }
+  }
+}

@@ -1,12 +1,26 @@
 {
   "name": "@forgemeshlabs/seo-authority-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mcpName": "io.github.forgemeshlabs/seo-authority-mcp",
   "description": "SEO authority, keyword opportunities, competitor gaps, content briefs, site audits, and internal-link intelligence via x402.",
   "type": "module",
   "main": "dist/index.js",
-  "bin": { "seo-authority-mcp": "dist/index.js" },
-  "files": ["dist", "tool_manifest.json", "README.md", "GLAMA.md", "glama.json", "server.json", "smithery.yaml", "LICENSE", "SECURITY.md", "CHANGELOG.md", "examples"],
+  "bin": {
+    "seo-authority-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "tool_manifest.json",
+    "README.md",
+    "GLAMA.md",
+    "glama.json",
+    "server.json",
+    "smithery.yaml",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "examples"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/generate-manifest.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -24,12 +38,34 @@
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"
   },
-  "keywords": ["mcp", "model-context-protocol", "seo", "domain-authority", "keyword-research", "competitor-analysis", "site-audit", "x402", "usdc", "base", "glama", "forgemesh"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "seo",
+    "domain-authority",
+    "keyword-research",
+    "competitor-analysis",
+    "site-audit",
+    "x402",
+    "usdc",
+    "base",
+    "glama",
+    "forgemesh"
+  ],
   "author": "ForgeMesh",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/forgemeshlabs/seo-authority-mcp.git" },
-  "bugs": { "url": "https://github.com/forgemeshlabs/seo-authority-mcp/issues" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forgemeshlabs/seo-authority-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forgemeshlabs/seo-authority-mcp/issues"
+  },
   "homepage": "https://github.com/forgemeshlabs/seo-authority-mcp#readme",
-  "publishConfig": { "access": "public" },
-  "engines": { "node": ">=22" }
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

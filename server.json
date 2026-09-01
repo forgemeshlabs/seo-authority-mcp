@@ -1,18 +1,52 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.forgemeshlabs/seo-authority-mcp",
-  "description": "SEO authority, keyword, competitor, content, site-audit, and internal-link tools with optional automatic x402 payments.",
-  "repository": { "url": "https://github.com/forgemeshlabs/seo-authority-mcp", "source": "github" },
-  "version": "0.1.0",
-  "packages": [{
-    "registryType": "npm",
-    "identifier": "@forgemeshlabs/seo-authority-mcp",
-    "version": "0.1.0",
-    "transport": { "type": "stdio" },
-    "environmentVariables": [
-      { "name": "SEO_API_BASE", "description": "Optional backend override; defaults to https://seo.forgemesh.io.", "isRequired": false, "isSecret": false, "format": "string" },
-      { "name": "SEO_X402_PRIVATE_KEY", "description": "Optional EVM wallet private key for automatic x402 USDC settlement.", "isRequired": false, "isSecret": true, "format": "string" },
-      { "name": "SEO_MAX_PAYMENT_USDC", "description": "Maximum automatic payment per tool call; defaults to 0.15 USDC.", "isRequired": false, "isSecret": false, "format": "string" }
-    ]
-  }]
+  "description": "SEO authority, keyword, competitor, content, site-audit, and internal-link tools with optional.",
+  "repository": {
+    "url": "https://github.com/forgemeshlabs/seo-authority-mcp",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@forgemeshlabs/seo-authority-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SEO_API_BASE",
+          "description": "Optional backend override; defaults to https://seo.forgemesh.io.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "SEO_X402_PRIVATE_KEY",
+          "description": "Optional EVM wallet private key for automatic x402 USDC settlement.",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "SEO_MAX_PAYMENT_USDC",
+          "description": "Maximum automatic payment per tool call; defaults to 0.15 USDC.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "https://forgemesh.io/favicon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "1254x1254"
+      ]
+    }
+  ]
 }

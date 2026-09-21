@@ -3,6 +3,7 @@
 [![M8ven Verified](https://m8ven.ai/badge/mcp/forgemeshlabs-seo-authority-mcp-9niona?variant=verified)](https://m8ven.ai/mcp/forgemeshlabs-seo-authority-mcp-9niona)
 
 [![MCP Server](https://glama.ai/mcp/servers/forgemeshlabs/seo-authority-mcp/badges/card.svg)](https://glama.ai/mcp/servers/forgemeshlabs/seo-authority-mcp)
+[![mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/forgemeshlabs/seo-authority-mcp)
 
 Give AI agents typed SEO authority, keyword, competitor, content, audit, and internal-link tools backed by [seo.forgemesh.io](https://seo.forgemesh.io). Authority scores use open Common Crawl graph data. The server does not invent search volume, CPC, live SERP positions, complete backlinks, or Google metrics.
 

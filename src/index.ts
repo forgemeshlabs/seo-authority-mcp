@@ -5,7 +5,7 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprot
 import { callSeoTool } from "./client.js";
 import { tools } from "./tools.js";
 
-const server = new Server({ name: "seo-authority-mcp", version: "0.1.0" }, { capabilities: { tools: {} } });
+const server = new Server({ name: "seo-authority-mcp", version: "0.1.1" }, { capabilities: { tools: {} } });
 server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }));
 server.setRequestHandler(CallToolRequestSchema, async request => {
   try {

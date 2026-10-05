@@ -3,7 +3,7 @@ import { tools } from "../dist/tools.js";
 
 const manifest = {
   server: "seo-authority-mcp",
-  version: "0.1.0",
+  version: "0.1.1",
   source: "https://seo.forgemesh.io/openapi.json",
   tools
 };

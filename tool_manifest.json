@@ -1,6 +1,6 @@
 {
   "server": "seo-authority-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "source": "https://seo.forgemesh.io/openapi.json",
   "tools": [
     {
@@ -31,6 +31,7 @@
         "properties": {
           "domain": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Domain or URL to measure, such as example.com."
           }
         },
@@ -57,7 +58,8 @@
             "minItems": 2,
             "maxItems": 20,
             "items": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 2000
             }
           }
         },
@@ -80,10 +82,12 @@
         "properties": {
           "url": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Canonical URL for the supplied page."
           },
           "html": {
             "type": "string",
+            "maxLength": 524288,
             "description": "Complete page HTML, up to 512 KB."
           }
         },
@@ -107,6 +111,7 @@
         "properties": {
           "query": {
             "type": "string",
+            "maxLength": 2000,
             "description": "SEO query to correct."
           }
         },
@@ -129,6 +134,7 @@
         "properties": {
           "query": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Seed SEO query to expand."
           }
         },
@@ -151,10 +157,12 @@
         "properties": {
           "seed": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Seed topic or keyword."
           },
           "audience": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Optional target audience."
           },
           "domain_authority_score": {
@@ -187,6 +195,7 @@
             "properties": {
               "domain": {
                 "type": "string",
+                "maxLength": 2000,
                 "description": "Your domain."
               },
               "pages": {
@@ -198,18 +207,22 @@
                   "properties": {
                     "url": {
                       "type": "string",
+                      "maxLength": 2000,
                       "description": "Absolute page URL."
                     },
                     "title": {
                       "type": "string",
+                      "maxLength": 2000,
                       "description": "Page title."
                     },
                     "text": {
                       "type": "string",
+                      "maxLength": 524288,
                       "description": "Visible page text."
                     },
                     "html": {
                       "type": "string",
+                      "maxLength": 524288,
                       "description": "Page HTML, when required."
                     }
                   },
@@ -234,6 +247,7 @@
               "properties": {
                 "domain": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Competitor domain."
                 },
                 "pages": {
@@ -245,18 +259,22 @@
                     "properties": {
                       "url": {
                         "type": "string",
+                        "maxLength": 2000,
                         "description": "Absolute page URL."
                       },
                       "title": {
                         "type": "string",
+                        "maxLength": 2000,
                         "description": "Page title."
                       },
                       "text": {
                         "type": "string",
+                        "maxLength": 524288,
                         "description": "Visible page text."
                       },
                       "html": {
                         "type": "string",
+                        "maxLength": 524288,
                         "description": "Page HTML, when required."
                       }
                     },
@@ -293,6 +311,7 @@
         "properties": {
           "keyword": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Primary keyword or topic."
           },
           "competitor_pages": {
@@ -303,18 +322,22 @@
               "properties": {
                 "url": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Absolute page URL."
                 },
                 "title": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Page title."
                 },
                 "text": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Visible page text."
                 },
                 "html": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Page HTML, when required."
                 }
               },
@@ -332,18 +355,22 @@
               "properties": {
                 "url": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Absolute page URL."
                 },
                 "title": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Page title."
                 },
                 "text": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Visible page text."
                 },
                 "html": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Page HTML, when required."
                 }
               },
@@ -381,18 +408,22 @@
               "properties": {
                 "url": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Absolute page URL."
                 },
                 "title": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Page title."
                 },
                 "text": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Visible page text."
                 },
                 "html": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Page HTML, when required."
                 }
               },
@@ -422,6 +453,7 @@
         "properties": {
           "domain": {
             "type": "string",
+            "maxLength": 2000,
             "description": "Site domain."
           },
           "pages": {
@@ -433,18 +465,22 @@
               "properties": {
                 "url": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Absolute page URL."
                 },
                 "title": {
                   "type": "string",
+                  "maxLength": 2000,
                   "description": "Page title."
                 },
                 "text": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Visible page text."
                 },
                 "html": {
                   "type": "string",
+                  "maxLength": 524288,
                   "description": "Page HTML, when required."
                 }
               },

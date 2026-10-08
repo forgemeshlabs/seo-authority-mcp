@@ -1,18 +1,18 @@
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 
 const readOnly = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true } as const;
-const string = (description: string) => ({ type: "string", description });
+const string = (description: string, maxLength = 2000) => ({ type: "string", maxLength, description });
 const page = {
   type: "object",
-  properties: { url: string("Absolute page URL."), title: string("Page title."), text: string("Visible page text."), html: string("Page HTML, when required.") },
+  properties: { url: string("Absolute page URL."), title: string("Page title."), text: string("Visible page text.", 524288), html: string("Page HTML, when required.", 524288) },
   required: ["url"]
 };
 
 export const tools: Tool[] = [
   { name: "get_seo_capabilities", description: "Retrieve free capability, provenance, and unavailable-metric disclosures before choosing a paid SEO tool.", annotations: readOnly, inputSchema: { type: "object", properties: {} } },
   { name: "get_domain_authority", description: "Measure one domain's open-web SEO authority using Common Crawl harmonic centrality and PageRank graph data; costs $0.01 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { domain: string("Domain or URL to measure, such as example.com.") }, required: ["domain"] } },
-  { name: "compare_domain_authority", description: "Compare open-web SEO authority for 2 to 20 domains and rank the results; costs $0.02 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { domains: { type: "array", description: "Two to twenty domains or URLs.", minItems: 2, maxItems: 20, items: { type: "string" } } }, required: ["domains"] } },
-  { name: "score_page_seo", description: "Score supplied page HTML for deterministic on-page SEO checks without claiming page authority; costs $0.01 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { url: string("Canonical URL for the supplied page."), html: string("Complete page HTML, up to 512 KB.") }, required: ["url", "html"] } },
+  { name: "compare_domain_authority", description: "Compare open-web SEO authority for 2 to 20 domains and rank the results; costs $0.02 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { domains: { type: "array", description: "Two to twenty domains or URLs.", minItems: 2, maxItems: 20, items: { type: "string", maxLength: 2000 } } }, required: ["domains"] } },
+  { name: "score_page_seo", description: "Score supplied page HTML for deterministic on-page SEO checks without claiming page authority; costs $0.01 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { url: string("Canonical URL for the supplied page."), html: string("Complete page HTML, up to 512 KB.", 524288) }, required: ["url", "html"] } },
   { name: "correct_seo_query", description: "Correct likely spelling errors in an SEO search query; costs $0.005 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { query: string("SEO query to correct.") }, required: ["query"] } },
   { name: "expand_seo_query", description: "Generate deterministic long-tail and intent-oriented variants of an SEO query; costs $0.01 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { query: string("Seed SEO query to expand.") }, required: ["query"] } },
   { name: "find_keyword_opportunities", description: "Generate and prioritize long-tail keyword opportunities without fabricating volume, CPC, SERP, or difficulty metrics; costs $0.05 USDC.", annotations: readOnly, inputSchema: { type: "object", properties: { seed: string("Seed topic or keyword."), audience: string("Optional target audience."), domain_authority_score: { type: "number", minimum: 0, maximum: 100, description: "Optional known authority score used for prioritization." } }, required: ["seed"] } },

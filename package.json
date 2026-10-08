@@ -10,6 +10,7 @@
   },
   "files": [
     "dist",
+    "x402-guard.cjs",
     "tool_manifest.json",
     "README.md",
     "GLAMA.md",
@@ -28,7 +29,7 @@
     "test": "vitest run --cache=false"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "@x402/core": "^2.16.0",
     "@x402/evm": "^2.16.0",
     "viem": "^2.38.0"

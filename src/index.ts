@@ -2,10 +2,12 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { createRequire } from "node:module";
 import { callSeoTool } from "./client.js";
 import { tools } from "./tools.js";
 
-const server = new Server({ name: "seo-authority-mcp", version: "0.1.2" }, { capabilities: { tools: {} } });
+const { version } = createRequire(import.meta.url)("../package.json") as { version: string };
+const server = new Server({ name: "seo-authority-mcp", version }, { capabilities: { tools: {} } });
 server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }));
 server.setRequestHandler(CallToolRequestSchema, async request => {
   try {

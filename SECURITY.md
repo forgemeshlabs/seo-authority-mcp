@@ -10,4 +10,4 @@ Report vulnerabilities privately to clawdbotworker@gmail.com. Do not include wal
 
 ## Wallet safety
 
-Use a dedicated low-balance wallet. Keep `SEO_X402_PRIVATE_KEY` in the MCP client's secret environment configuration, never in source control. Automatic payments are capped per call by `SEO_MAX_PAYMENT_USDC`.
+Use a dedicated low-balance wallet. Keep `SEO_X402_PRIVATE_KEY` in the MCP client's secret environment configuration, never in source control. Automatic payments are capped per call ($0.15) and per session ($10); `X402_MAX_PRICE_USD` and `X402_SESSION_BUDGET_USD` can only lower those caps. The server signs only for the ForgeMesh SEO payee, Base mainnet, USDC.

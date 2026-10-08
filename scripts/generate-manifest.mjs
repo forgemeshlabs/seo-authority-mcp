@@ -1,9 +1,11 @@
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { tools } from "../dist/tools.js";
+
+const { version } = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
 
 const manifest = {
   server: "seo-authority-mcp",
-  version: "0.1.1",
+  version,
   source: "https://seo.forgemesh.io/openapi.json",
   tools
 };

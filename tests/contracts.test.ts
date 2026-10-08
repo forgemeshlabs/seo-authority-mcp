@@ -24,7 +24,9 @@ describe("MCP contracts", () => {
 
   it("maps tools to the expected API routes", () => {
     expect(requestForTool("get_domain_authority", { domain: "example.com" }).path).toContain("/v1/domain-authority");
-    expect(requestForTool("audit_site_seo", { pages: [] }).path).toBe("/v1/site-audit");
+    expect(requestForTool("audit_site_seo", { pages: [{ url: "https://example.com/", html: "<html></html>" }] }).path).toBe("/v1/site-audit");
+    expect(() => requestForTool("audit_site_seo", { pages: [] })).toThrow(/Invalid argument/);
+    expect(() => requestForTool("score_page_seo", { url: "http://example.com", html: "x" })).toThrow(/https/);
     expect(() => requestForTool("not_a_tool", {})).toThrow(/Unknown tool/);
   });
 });

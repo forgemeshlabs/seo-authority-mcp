@@ -37,8 +37,7 @@ Automatic x402 settlement:
       "command": "npx",
       "args": ["-y", "@forgemeshlabs/seo-authority-mcp"],
       "env": {
-        "SEO_X402_PRIVATE_KEY": "YOUR_DEDICATED_LOW_BALANCE_WALLET_KEY",
-        "SEO_MAX_PAYMENT_USDC": "0.15"
+        "SEO_X402_PRIVATE_KEY": "YOUR_DEDICATED_LOW_BALANCE_WALLET_KEY"
       }
     }
   }
@@ -68,8 +67,8 @@ Paid tools use exact USDC settlement on Base. Without `SEO_X402_PRIVATE_KEY`, ea
 ## Docker
 
 ```bash
-docker build -t seo-authority-mcp:0.1.0 .
-docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.1.0
+docker build -t seo-authority-mcp:0.1.2 .
+docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.1.2
 ```
 
 For automatic payment, pass the private key at runtime using your secret manager. Do not bake it into the image.
@@ -79,10 +78,10 @@ For automatic payment, pass the private key at runtime using your secret manager
 | Variable | Required | Default | Purpose |
 |---|---|---|---|
 | `SEO_X402_PRIVATE_KEY` | No | unset | Enables automatic payment |
-| `SEO_MAX_PAYMENT_USDC` | No | `0.15` | Per-call payment ceiling |
-| `SEO_API_BASE` | No | `https://seo.forgemesh.io` | Backend URL |
-| `SEO_ALLOW_CUSTOM_API_BASE` | No | `false` | Explicitly allows a custom HTTPS backend |
-| `SEO_REQUEST_TIMEOUT_MS` | No | `30000` | Upstream timeout, capped at 120 seconds |
+| `X402_MAX_PRICE_USD` | No | `0.15` | Per-call payment ceiling; can only LOWER the built-in cap |
+| `X402_SESSION_BUDGET_USD` | No | `10` | Cumulative per-process ceiling; can only LOWER the built-in cap |
+
+The backend is fixed to `https://seo.forgemesh.io`. The server refuses to sign for any payee other than the ForgeMesh SEO wallet, any network other than Base mainnet, any asset other than USDC, or any amount over the cap. Requests are same-origin, time-limited (60s), size-capped (2 MB) and never follow redirects. Tool arguments are validated before any network call. Use a dedicated, low-balance wallet.
 
 ## Links
 

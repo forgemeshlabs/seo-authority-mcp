@@ -1,6 +1,6 @@
 {
   "name": "@forgemeshlabs/seo-authority-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "mcpName": "io.github.forgemeshlabs/seo-authority-mcp",
   "description": "SEO authority, keyword opportunities, competitor gaps, content briefs, site audits, and internal-link intelligence via x402.",
   "type": "module",

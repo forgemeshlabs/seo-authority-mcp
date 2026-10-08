@@ -17,24 +17,10 @@
       },
       "environmentVariables": [
         {
-          "name": "SEO_API_BASE",
-          "description": "Optional backend override; defaults to https://seo.forgemesh.io.",
-          "isRequired": false,
-          "isSecret": false,
-          "format": "string"
-        },
-        {
           "name": "SEO_X402_PRIVATE_KEY",
           "description": "Optional EVM wallet private key for automatic x402 USDC settlement.",
           "isRequired": false,
           "isSecret": true,
-          "format": "string"
-        },
-        {
-          "name": "SEO_MAX_PAYMENT_USDC",
-          "description": "Maximum automatic payment per tool call; defaults to 0.15 USDC.",
-          "isRequired": false,
-          "isSecret": false,
           "format": "string"
         }
       ]

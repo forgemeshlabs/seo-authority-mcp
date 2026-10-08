@@ -67,8 +67,8 @@ Paid tools use exact USDC settlement on Base. Without `SEO_X402_PRIVATE_KEY`, ea
 ## Docker
 
 ```bash
-docker build -t seo-authority-mcp:0.1.2 .
-docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.1.2
+docker build -t seo-authority-mcp:0.1.3 .
+docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.1.3
 ```
 
 For automatic payment, pass the private key at runtime using your secret manager. Do not bake it into the image.

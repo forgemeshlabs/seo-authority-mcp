@@ -6,12 +6,12 @@
     "url": "https://github.com/forgemeshlabs/seo-authority-mcp",
     "source": "github"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@forgemeshlabs/seo-authority-mcp",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "transport": {
         "type": "stdio"
       },

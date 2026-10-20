@@ -61,6 +61,7 @@ Use a dedicated low-balance wallet. Never commit its private key.
 | `create_seo_content_brief` | Evidence-tagged brief | $0.10 |
 | `audit_site_seo` | Multi-page SEO audit | $0.15 |
 | `find_internal_link_opportunities` | Contextual internal links | $0.05 |
+| `vet_placement` | Vet a directory, publication or sponsor pitch before paying (domain age, Tranco rank, Google News, link dilution, badge/pay-to-play signals) | $0.05 |
 
 Paid tools use exact USDC settlement on Base. Without `SEO_X402_PRIVATE_KEY`, each tool returns price, network, receiver, and retry guidance instead of spending.
 

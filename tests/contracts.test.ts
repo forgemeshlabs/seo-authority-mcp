@@ -3,9 +3,9 @@ import { paidToolNames, tools } from "../src/tools.js";
 import { requestForTool } from "../src/client.js";
 
 describe("MCP contracts", () => {
-  it("exposes ten paid tools and one free capability tool", () => {
-    expect(tools).toHaveLength(11);
-    expect(paidToolNames.size).toBe(10);
+  it("exposes eleven paid tools and one free capability tool", () => {
+    expect(tools).toHaveLength(12);
+    expect(paidToolNames.size).toBe(11);
   });
 
   it("uses unique lowercase snake_case names", () => {

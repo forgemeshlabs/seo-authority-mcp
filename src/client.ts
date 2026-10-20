@@ -99,6 +99,7 @@ export function requestForTool(name: string, args: Args): RequestSpec {
     case "create_seo_content_brief": return { path: "/v1/content-brief", method: "POST", body: { keyword: str("keyword", args.keyword), competitor_pages: optPages("competitor_pages", args.competitor_pages), site_pages: optPages("site_pages", args.site_pages) } };
     case "audit_site_seo": return { path: "/v1/site-audit", method: "POST", body: { pages: pages("pages", args.pages, 1, true) } };
     case "find_internal_link_opportunities": return { path: "/v1/internal-link-opportunities", method: "POST", body: { domain: domainLike("domain", args.domain), pages: pages("pages", args.pages, 2) } };
+    case "vet_placement": return { path: "/v1/placement-vet", method: "POST", body: { domain: domainLike("domain", args.domain), ...(args.sample_url == null ? {} : { sample_url: httpsUrl("sample_url", args.sample_url) }) } };
     default: throw new Error(`Unknown tool: ${name}`);
   }
 }

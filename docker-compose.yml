@@ -1,7 +1,7 @@
 services:
   seo-authority-mcp:
     build: .
-    image: forgemeshlabs/seo-authority-mcp:0.1.2
+    image: forgemeshlabs/seo-authority-mcp:0.1.4
     stdin_open: true
     read_only: true
     cap_drop: [ALL]

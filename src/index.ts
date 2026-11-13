@@ -15,7 +15,9 @@ server.setRequestHandler(CallToolRequestSchema, async request => {
     return { content: [{ type: "text", text: JSON.stringify(data) }] };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    return { content: [{ type: "text", text: JSON.stringify({ error: { code: "SEO_TOOL_ERROR", message } }) }], isError: true };
+    const e = error as { status?: number; charged?: boolean; upstream?: unknown };
+    const detail = { ...(e.status !== undefined ? { status: e.status } : {}), ...(e.charged !== undefined ? { charged: e.charged } : {}), ...(e.upstream !== undefined ? { upstream: e.upstream } : {}) };
+    return { content: [{ type: "text", text: JSON.stringify({ error: { code: "SEO_TOOL_ERROR", message, ...detail } }) }], isError: true };
   }
 });
 

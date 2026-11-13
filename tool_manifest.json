@@ -1,6 +1,6 @@
 {
   "server": "seo-authority-mcp",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "source": "https://seo.forgemesh.io/openapi.json",
   "tools": [
     {
@@ -19,7 +19,7 @@
     },
     {
       "name": "get_domain_authority",
-      "description": "Measure one domain's open-web SEO authority using Common Crawl harmonic centrality and PageRank graph data; costs $0.01 USDC.",
+      "description": "Measure one domain's open-web SEO authority from a periodic Common Crawl Web Graph snapshot (harmonic centrality weight 0.65, PageRank 0.35): returns domain_authority_score 0-100, authority_percentile and the graph release and crawl period. Not live data. Answers 404 domain_not_covered, uncharged, when the domain is not in the graph; costs $0.01 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -42,7 +42,7 @@
     },
     {
       "name": "compare_domain_authority",
-      "description": "Compare open-web SEO authority for 2 to 20 domains and rank the results; costs $0.02 USDC.",
+      "description": "Compare open-web SEO authority for 2 to 20 domains from a periodic Common Crawl Web Graph snapshot, ranked by domain_authority_score; a domain missing from the graph comes back found=false, and 404 no_domain_covered (uncharged) when none is in the graph; costs $0.02 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -70,7 +70,7 @@
     },
     {
       "name": "score_page_seo",
-      "description": "Score supplied page HTML for deterministic on-page SEO checks without claiming page authority; costs $0.01 USDC.",
+      "description": "Score the page HTML you supply (nothing is fetched) with 7 deterministic on-page checks: title present, title length, meta description, canonical, exactly one H1, structured data, image alt text. Returns url_seo_score 0-100 and per-check booleans; no authority or backlink data; costs $0.01 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -98,88 +98,8 @@
       }
     },
     {
-      "name": "correct_seo_query",
-      "description": "Correct likely spelling errors in an SEO search query; costs $0.005 USDC.",
-      "annotations": {
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": true
-      },
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "maxLength": 2000,
-            "description": "SEO query to correct."
-          }
-        },
-        "required": [
-          "query"
-        ]
-      }
-    },
-    {
-      "name": "expand_seo_query",
-      "description": "Generate deterministic long-tail and intent-oriented variants of an SEO query; costs $0.01 USDC.",
-      "annotations": {
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": true
-      },
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "maxLength": 2000,
-            "description": "Seed SEO query to expand."
-          }
-        },
-        "required": [
-          "query"
-        ]
-      }
-    },
-    {
-      "name": "find_keyword_opportunities",
-      "description": "Generate and prioritize long-tail keyword opportunities without fabricating volume, CPC, SERP, or difficulty metrics; costs $0.05 USDC.",
-      "annotations": {
-        "readOnlyHint": true,
-        "destructiveHint": false,
-        "idempotentHint": true,
-        "openWorldHint": true
-      },
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "seed": {
-            "type": "string",
-            "maxLength": 2000,
-            "description": "Seed topic or keyword."
-          },
-          "audience": {
-            "type": "string",
-            "maxLength": 2000,
-            "description": "Optional target audience."
-          },
-          "domain_authority_score": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100,
-            "description": "Optional known authority score used for prioritization."
-          }
-        },
-        "required": [
-          "seed"
-        ]
-      }
-    },
-    {
       "name": "find_competitor_content_gaps",
-      "description": "Find content gaps from customer-supplied site and competitor pages without claiming live SERP verification; costs $0.10 USDC.",
+      "description": "Find content gaps from the site and competitor pages you supply (up to 50 pages per site, up to 10 competitors). Returns content_gaps with topic, competitor_coverage, competitor_share and priority, plus evidence and limitations; no live SERP, no backlink index; costs $0.10 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -299,7 +219,7 @@
     },
     {
       "name": "create_seo_content_brief",
-      "description": "Create an evidence-tagged SEO content brief from a keyword and supplied competitor or site pages; costs $0.10 USDC.",
+      "description": "Create an SEO content brief measured from competitor pages you supply: supporting_terms with counts, observed_word_count (minimum, median, maximum), internal_link_targets, a rule-based search_intent and a fixed six-section outline. Requires 1 to 20 competitor_pages; answers 422, uncharged, without usable pages; no live SERP; costs $0.10 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -316,7 +236,8 @@
           },
           "competitor_pages": {
             "type": "array",
-            "maxItems": 50,
+            "minItems": 1,
+            "maxItems": 20,
             "items": {
               "type": "object",
               "properties": {
@@ -345,7 +266,7 @@
                 "url"
               ]
             },
-            "description": "Optional competitor pages providing evidence."
+            "description": "One to twenty competitor pages (url, title, and text or html)."
           },
           "site_pages": {
             "type": "array",
@@ -382,13 +303,14 @@
           }
         },
         "required": [
-          "keyword"
+          "keyword",
+          "competitor_pages"
         ]
       }
     },
     {
       "name": "audit_site_seo",
-      "description": "Audit supplied page HTML for on-page, duplication, and internal-link problems; costs $0.15 USDC.",
+      "description": "Audit 1 to 50 pages of HTML you supply (nothing is crawled). Returns site_seo_score, per-page url_seo_score with on-page checks, extracted values and links, and issues: duplicate_titles and orphan_pages; costs $0.15 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -441,7 +363,7 @@
     },
     {
       "name": "find_internal_link_opportunities",
-      "description": "Find missing contextually relevant internal links across supplied pages; costs $0.05 USDC.",
+      "description": "Find missing internal links across 1 to 50 pages you supply: returns opportunities with source_url, target_url, relevance and suggested_anchor for contextually related pages that do not link to each other; costs $0.05 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -458,7 +380,7 @@
           },
           "pages": {
             "type": "array",
-            "minItems": 2,
+            "minItems": 1,
             "maxItems": 50,
             "items": {
               "type": "object",
@@ -488,7 +410,7 @@
                 "url"
               ]
             },
-            "description": "Two or more site pages with title and text for best results."
+            "description": "One to fifty site pages with title and text for best results."
           }
         },
         "required": [
@@ -499,7 +421,7 @@
     },
     {
       "name": "vet_placement",
-      "description": "Vet a directory, publication or sponsor pitch before paying for a listing: domain age from RDAP, Tranco popularity rank, Google News presence, outbound-link dilution and rel=sponsored use on a sample page, badge and pay-to-play wording; returns a 0-100 score, verdict and red flags; costs $0.05 USDC.",
+      "description": "Vet a directory, publication or sponsor pitch before paying for a listing: domain age from RDAP, Tranco popularity rank, Google News presence, outbound-link dilution and rel=sponsored use on a sample page, badge and pay-to-play wording; returns a rule-based 0-100 score, verdict, red_flags and positives; an unreadable source is marked unavailable and does not move the score; not charged if the domain does not resolve or no source answers; costs $0.05 USDC.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,

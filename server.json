@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.forgemeshlabs/seo-authority-mcp",
-  "description": "SEO authority, keyword, competitor, content, site-audit, and internal-link tools with optional.",
+  "description": "SEO authority, competitor, content, site-audit, and internal-link tools with optional.",
   "repository": {
     "url": "https://github.com/forgemeshlabs/seo-authority-mcp",
     "source": "github"
   },
-  "version": "0.1.5",
+  "version": "0.2.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@forgemeshlabs/seo-authority-mcp",
-      "version": "0.1.5",
+      "version": "0.2.0",
       "transport": {
         "type": "stdio"
       },

@@ -5,7 +5,7 @@
 [![MCP Server](https://glama.ai/mcp/servers/forgemeshlabs/seo-authority-mcp/badges/card.svg)](https://glama.ai/mcp/servers/forgemeshlabs/seo-authority-mcp)
 [![mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/forgemeshlabs/seo-authority-mcp)
 
-Give AI agents typed SEO authority, keyword, competitor, content, audit, and internal-link tools backed by [seo.forgemesh.io](https://seo.forgemesh.io). Authority scores use open Common Crawl graph data. The server does not invent search volume, CPC, live SERP positions, complete backlinks, or Google metrics.
+Give AI agents typed SEO authority, competitor, content, audit, and internal-link tools backed by [seo.forgemesh.io](https://seo.forgemesh.io). Authority scores use open Common Crawl graph data. The server does not invent search volume, CPC, live SERP positions, complete backlinks, or Google metrics.
 
 ## Install
 
@@ -54,9 +54,6 @@ Use a dedicated low-balance wallet. Never commit its private key.
 | `get_domain_authority` | Common Crawl graph authority | $0.01 |
 | `compare_domain_authority` | Compare 2–20 domains | $0.02 |
 | `score_page_seo` | Deterministic on-page checks | $0.01 |
-| `correct_seo_query` | Did-you-mean correction | $0.005 |
-| `expand_seo_query` | Long-tail query variants | $0.01 |
-| `find_keyword_opportunities` | Prioritized keyword ideas | $0.05 |
 | `find_competitor_content_gaps` | Supplied-content gap analysis | $0.10 |
 | `create_seo_content_brief` | Evidence-tagged brief | $0.10 |
 | `audit_site_seo` | Multi-page SEO audit | $0.15 |
@@ -68,8 +65,8 @@ Paid tools use exact USDC settlement on Base. Without `SEO_X402_PRIVATE_KEY`, ea
 ## Docker
 
 ```bash
-docker build -t seo-authority-mcp:0.1.5 .
-docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.1.5
+docker build -t seo-authority-mcp:0.2.0 .
+docker run --rm -i --read-only --cap-drop=ALL seo-authority-mcp:0.2.0
 ```
 
 For automatic payment, pass the private key at runtime using your secret manager. Do not bake it into the image.

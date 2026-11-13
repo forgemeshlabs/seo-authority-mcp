@@ -3,9 +3,9 @@ import { paidToolNames, tools } from "../src/tools.js";
 import { requestForTool } from "../src/client.js";
 
 describe("MCP contracts", () => {
-  it("exposes eleven paid tools and one free capability tool", () => {
-    expect(tools).toHaveLength(12);
-    expect(paidToolNames.size).toBe(11);
+  it("exposes eight paid tools and one free capability tool", () => {
+    expect(tools).toHaveLength(9);
+    expect(paidToolNames.size).toBe(8);
   });
 
   it("uses unique lowercase snake_case names", () => {
@@ -28,5 +28,13 @@ describe("MCP contracts", () => {
     expect(() => requestForTool("audit_site_seo", { pages: [] })).toThrow(/Invalid argument/);
     expect(() => requestForTool("score_page_seo", { url: "http://example.com", html: "x" })).toThrow(/https/);
     expect(() => requestForTool("not_a_tool", {})).toThrow(/Unknown tool/);
+    expect(() => requestForTool("correct_seo_query", { query: "x" })).toThrow(/Unknown tool/);
+  });
+
+  it("requires 1 to 20 competitor pages for the content brief", () => {
+    const p = { url: "https://example.com/a", text: "t" };
+    expect(() => requestForTool("create_seo_content_brief", { keyword: "k" })).toThrow(/competitor_pages/);
+    expect(() => requestForTool("create_seo_content_brief", { keyword: "k", competitor_pages: Array(21).fill(p) })).toThrow(/1 to 20/);
+    expect(requestForTool("create_seo_content_brief", { keyword: "k", competitor_pages: [p] }).path).toBe("/v1/content-brief");
   });
 });

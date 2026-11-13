@@ -59,8 +59,8 @@ function page(field: string, v: unknown, requireHtml = false) {
     html: requireHtml ? str(`${field}.html`, p.html, MAX_HTML) : str(`${field}.html`, p.html, MAX_HTML, true)
   };
 }
-function pages(field: string, v: unknown, min: number, requireHtml = false) {
-  return list(field, v, min, 50).map((p, i) => page(`${field}[${i}]`, p, requireHtml));
+function pages(field: string, v: unknown, min: number, requireHtml = false, max = 50) {
+  return list(field, v, min, max).map((p, i) => page(`${field}[${i}]`, p, requireHtml));
 }
 function optPages(field: string, v: unknown) {
   return v === undefined ? undefined : pages(field, v, 0);
@@ -79,13 +79,6 @@ export function requestForTool(name: string, args: Args): RequestSpec {
     case "get_domain_authority": return { path: encodeQuery("/v1/domain-authority", { domain: domainLike("domain", args.domain) }) };
     case "compare_domain_authority": return { path: "/v1/authority-compare", method: "POST", body: { domains: list("domains", args.domains, 2, 20).map((d, i) => domainLike(`domains[${i}]`, d)) } };
     case "score_page_seo": return { path: "/v1/url-seo-score", method: "POST", body: { url: httpsUrl("url", args.url), html: str("html", args.html, MAX_HTML) } };
-    case "correct_seo_query": return { path: encodeQuery("/v1/query-correct", { q: str("query", args.query) as string }) };
-    case "expand_seo_query": return { path: encodeQuery("/v1/query-expand", { q: str("query", args.query) as string }) };
-    case "find_keyword_opportunities": {
-      const score = args.domain_authority_score;
-      if (score !== undefined && (typeof score !== "number" || !Number.isFinite(score) || score < 0 || score > 100)) fail("domain_authority_score", "must be a number from 0 to 100");
-      return { path: "/v1/keyword-opportunity", method: "POST", body: { seed: str("seed", args.seed), audience: str("audience", args.audience, MAX_TEXT, true), domain_authority_score: score as number | undefined } };
-    }
     case "find_competitor_content_gaps": {
       const site = obj("site", args.site);
       return { path: "/v1/competitor-gap", method: "POST", body: {
@@ -96,9 +89,9 @@ export function requestForTool(name: string, args: Args): RequestSpec {
         })
       } };
     }
-    case "create_seo_content_brief": return { path: "/v1/content-brief", method: "POST", body: { keyword: str("keyword", args.keyword), competitor_pages: optPages("competitor_pages", args.competitor_pages), site_pages: optPages("site_pages", args.site_pages) } };
+    case "create_seo_content_brief": return { path: "/v1/content-brief", method: "POST", body: { keyword: str("keyword", args.keyword), competitor_pages: pages("competitor_pages", args.competitor_pages, 1, false, 20), site_pages: optPages("site_pages", args.site_pages) } };
     case "audit_site_seo": return { path: "/v1/site-audit", method: "POST", body: { pages: pages("pages", args.pages, 1, true) } };
-    case "find_internal_link_opportunities": return { path: "/v1/internal-link-opportunities", method: "POST", body: { domain: domainLike("domain", args.domain), pages: pages("pages", args.pages, 2) } };
+    case "find_internal_link_opportunities": return { path: "/v1/internal-link-opportunities", method: "POST", body: { domain: domainLike("domain", args.domain), pages: pages("pages", args.pages, 1) } };
     case "vet_placement": return { path: "/v1/placement-vet", method: "POST", body: { domain: domainLike("domain", args.domain), ...(args.sample_url == null ? {} : { sample_url: httpsUrl("sample_url", args.sample_url) }) } };
     default: throw new Error(`Unknown tool: ${name}`);
   }
@@ -133,7 +126,7 @@ export async function callSeoTool(name: string, args: Args): Promise<unknown> {
   const first = await guard.fetchBounded(spec.path, { method: spec.method || "GET", headers: { ...headers, ...(spec.body ? { "content-type": "application/json" } : {}) }, ...(spec.body ? { body: JSON.stringify(spec.body) } : {}) });
   const firstBody = parseBody(first.text);
   if (first.status !== 402) {
-    if (!first.ok) throw new Error(`SEO API ${first.status}: ${first.text.slice(0, 200)}`);
+    if (!first.ok) throw guard.httpError(first, "SEO API ", false); // nothing was signed, so nothing was charged
     return firstBody;
   }
   const challenge = parseChallenge(first.headers, firstBody);
